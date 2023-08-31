@@ -6,6 +6,9 @@
     <div v-if="loading" class="w-fit mx-auto">
       加载中
     </div>
+    <div v-if="error" class="w-fit mx-auto">
+      数据加载失败，请尝试刷新页面或检查 ServerStatus 服务端状态
+    </div>
     <div v-if="serverData" class="flex flex-wrap gap-4">
       <ServerItem
         v-for="server in serverData.servers" :key="server.name"
@@ -15,7 +18,7 @@
     </div>
     <div class="h-16" />
     <div class="text-center absolute left-0 bottom-0 py-4 w-full">
-      Powered by <a class="text-blue-500" href="https://github.com/zdz/ServerStatus-Rust" target="_blank">ServerStatus-Rust</a>. Theme  designed by <a class="text-blue-500" href="https://orilight.top/" target="_blank">OriLight</a>
+      Powered by <a class="text-blue-500" href="https://github.com/zdz/ServerStatus-Rust" target="_blank">ServerStatus-Rust</a>. Theme <a class="text-blue-500" href="https://github.com/orilights/ServerStatus-Theme-Light" target="_blank">Light</a> by <a class="text-blue-500" href="https://orilight.top/" target="_blank">OriLight</a>
     </div>
   </div>
 </template>
@@ -30,6 +33,7 @@ const serverData = ref<{
   servers: ServerData[]
 }>()
 const loading = ref(true)
+const error = ref(false)
 
 onMounted(() => {
   fetch(jsonApi)
@@ -39,6 +43,9 @@ onMounted(() => {
       setInterval(() => {
         fetchData()
       }, 1000)
+    })
+    .catch(() => {
+      error.value = true
     })
     .finally(() => {
       loading.value = false
@@ -50,6 +57,10 @@ function fetchData() {
     .then(res => res.json())
     .then((data) => {
       serverData.value = data
+      error.value = false
+    })
+    .catch(() => {
+      error.value = true
     })
 }
 </script>

@@ -2,6 +2,8 @@
 
 ![1693474863910](docs/screenshot.png)
 
+在线预览: [ssr-theme-light.orilight.top](https://ssr-theme-light.orilight.top/)
+
 ## 简介
 
 使用 Vue 与 Tailwind CSS 构建的极简 ServerStatus 主题
@@ -26,7 +28,7 @@ yarn build
 
 打包完成后使用 dist 目录内文件替换原主题即可
 
-具体操作请看 [https://github.com/zdz/ServerStatus-Rust#6-faq](https://github.com/zdz/ServerStatus-Rust#6-faq) 中的 **如何使用自定义主题**
+具体操作请看 [github.com/zdz/ServerStatus-Rust#6-faq](https://github.com/zdz/ServerStatus-Rust#6-faq) 中的 **如何使用自定义主题**
 
 ## 感谢
 

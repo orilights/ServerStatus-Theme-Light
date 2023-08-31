@@ -24,7 +24,7 @@ export default defineConfig({
   ],
   server: {
     proxy: {
-      '/json': 'https://server.orght.cn',
+      '/json': 'https://status.orght.cn',
     },
   },
 })

@@ -26,6 +26,8 @@ yarn build
 
 打包完成后使用 dist 目录内文件替换原主题即可
 
+具体操作请看 [https://github.com/zdz/ServerStatus-Rust#6-faq](https://github.com/zdz/ServerStatus-Rust#6-faq) 中的 **如何使用自定义主题**
+
 ## 感谢
 
 - [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust)

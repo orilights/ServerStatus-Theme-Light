@@ -1,14 +1,31 @@
-# Vue Template
+# ServerStatus Theme Light
 
-个人使用的 Vue 项目模板
+![1693474863910](docs/screenshot.png)
 
-## 包含
+## 简介
 
-- Vue，Vite，Vue Router，TypeScript
-- TailwindCSS
-- [antfu](https://github.com/antfu) 大佬开发的自动导入插件 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 和 [unplugin-vue-components](https://github.com/antfu/unplugin-vue-components) ，基于 Vite
-- ESLint，保存时自动格式化代码，规则使用 [antfu/eslint-config](https://github.com/antfu/eslint-config)
+使用 Vue 与 Tailwind CSS 构建的极简 ServerStatus 主题
 
-## 参考
+基于 [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust) 开发，未测试与其他 ServerStatus 实现的兼容性
 
-[antfu/vitesse-lite](https://github.com/antfu/vitesse-lite)
+## 特性
+
+- 卡片式极简主题
+- 响应式界面
+- 不支持三网 Ping 和丢包数据的显示
+
+## 使用
+
+```shell
+# 安装依赖
+yarn install
+
+# 打包构建
+yarn build
+```
+
+打包完成后使用 dist 目录内文件替换原主题即可
+
+## 感谢
+
+- [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust)

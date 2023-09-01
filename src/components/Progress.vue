@@ -22,6 +22,5 @@
 defineProps<{
   value: number
   max: number
-  text: string
 }>()
 </script>

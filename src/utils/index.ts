@@ -24,3 +24,8 @@ export function formatTime(seconds: number) {
 export function isOnline(server: ServerData) {
   return server.online4 || server.online6
 }
+
+export function isCountryFlagEmoji(text: string) {
+  const regex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g
+  return regex.test(text)
+}

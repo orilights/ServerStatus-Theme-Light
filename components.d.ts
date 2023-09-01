@@ -12,5 +12,6 @@ declare module 'vue' {
     IconUpload: typeof import('./src/components/icon/IconUpload.vue')['default']
     Progress: typeof import('./src/components/Progress.vue')['default']
     ServerItem: typeof import('./src/components/ServerItem.vue')['default']
+    StatusIndicator: typeof import('./src/components/StatusIndicator.vue')['default']
   }
 }

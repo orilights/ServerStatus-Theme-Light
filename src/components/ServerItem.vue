@@ -3,23 +3,35 @@
     class="hover:shadow-md border rounded-xl p-4 transition-all relative hover:border-gray-400"
   >
     <div class="absolute right-4 top-4 group flex flex-col items-end">
-      <div
-        class="w-3 h-3 rounded-full"
-        :class="{
-          'bg-green-400': isOnline(server),
-          'bg-red-500': !isOnline(server),
-        }"
+      <StatusIndicator
+        :status="isOnline(server)"
+        class="w-3 h-3"
       />
       <div class="hidden group-hover:block p-2 rounded-xl border text-sm bg-white z-[9999] shadow-md">
-        <div>
-          IPv4 {{ server.online4 ? '在线' : '离线' }} IPv6 {{ server.online6 ? '在线' : '离线' }}
+        <div class="flex items-center gap-1">
+          IPv4
+          <StatusIndicator
+            :status="server.online4"
+            class="w-2 h-2"
+          />
+          IPv6
+          <StatusIndicator
+            :status="server.online6"
+            class="w-2 h-2"
+          />
         </div>
-        最后上报时间<br>
-        {{ formatTime(server.latest_ts) }}
+        <div v-if="server.latest_ts">
+          最后上报时间<br>
+          {{ formatTime(server.latest_ts) }}
+        </div>
       </div>
     </div>
     <div class="text-lg flex items-center gap-2">
+      <span v-if="isCountryFlagEmoji(server.location)">
+        {{ server.location }}
+      </span>
       <img
+        v-else
         :src="`/image/flags/${server.location}.svg`" :alt="`${server.location} flag`"
         class="h-4 inline-block rounded-sm"
       >
@@ -28,7 +40,7 @@
         :src="`/image/os/${labels.os}.svg`" :alt="`${labels.os} os`"
         class="h-4 inline-block rounded-sm"
       >
-      {{ server.alias }}
+      {{ server.alias || server.name }}
     </div>
     <div>
       运行时间
@@ -117,13 +129,15 @@
 
 <script setup lang="ts">
 import type { ServerData } from '@/types'
-import { formatBytes, formatTime, isOnline } from '@/utils'
+import { formatBytes, formatTime, isCountryFlagEmoji, isOnline } from '@/utils'
 
 const props = defineProps<{
   server: ServerData
 }>()
 
 const labels = computed(() => {
+  if (!props.server.labels)
+    return {}
   const list = props.server.labels.split(';')
   const result: { [key: string]: string } = {}
   list.forEach((item) => {

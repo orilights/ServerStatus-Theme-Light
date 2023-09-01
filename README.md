@@ -8,7 +8,12 @@
 
 使用 Vue 与 Tailwind CSS 构建的极简 ServerStatus 主题
 
-基于 [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust) 开发，未测试与其他 ServerStatus 实现的兼容性
+基于 [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust) 开发
+
+已兼容的 ServerStatus 实现:
+
+- [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust)
+- [cppla/ServerStatus](https://github.com/cppla/ServerStatus)
 
 ## 特性
 

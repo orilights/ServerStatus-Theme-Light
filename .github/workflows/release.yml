@@ -1,0 +1,36 @@
+name: release
+
+on:
+  push:
+    tags:
+      - '*'
+
+  workflow_dispatch: 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'yarn'
+
+      - name: Build
+        run: yarn && yarn build
+
+      - name: Zip Build
+        uses: TheDoctor0/zip-release@0.6.2
+        with:
+          filename: dist.zip
+          path: ./dist/
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist.zip

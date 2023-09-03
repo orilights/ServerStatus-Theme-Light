@@ -3,10 +3,10 @@
     <h1 class="text-4xl font-bold py-4">
       服务器监控
     </h1>
-    <div v-if="loading" class="w-fit mx-auto">
+    <div v-if="loading" class="w-fit mx-auto my-2">
       加载中
     </div>
-    <div v-if="error" class="w-fit mx-auto">
+    <div v-if="error" class="w-fit mx-auto my-2">
       数据加载失败，请尝试刷新页面或检查 ServerStatus 服务端状态
     </div>
     <div v-if="serverData" class="flex flex-wrap gap-x-4 gap-y-3">

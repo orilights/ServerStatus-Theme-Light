@@ -23,7 +23,13 @@
 
 ## 使用
 
+前往 [Release](https://github.com/orilights/ServerStatus-Theme-Light/releases) 下载 `dist.zip` 解压替换原主题即可
+
+也可自行打包构建:
+
 ```shell
+# 需要 NodeJS 环境并安装 yarn 包管理器
+
 # 安装依赖
 yarn install
 

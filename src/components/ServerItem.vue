@@ -1,24 +1,28 @@
 <template>
   <div
-    class="hover:shadow-md border rounded-xl p-4 transition-all relative hover:border-gray-400"
+    class="rounded-xl px-4 py-3 transition-all relative bg-gray-100 border border-transparent hover:border-gray-400 hover:shadow-md hover:bg-white duration-300"
   >
     <div class="absolute right-4 top-4 group flex flex-col items-end">
       <StatusIndicator
         :status="isOnline(server)"
         class="w-3 h-3"
       />
-      <div class="hidden group-hover:block p-2 rounded-xl border text-sm bg-white z-[9999] shadow-md">
-        <div class="flex items-center gap-1">
-          IPv4
-          <StatusIndicator
-            :status="server.online4"
-            class="w-2 h-2"
-          />
-          IPv6
-          <StatusIndicator
-            :status="server.online6"
-            class="w-2 h-2"
-          />
+      <div class="hidden group-hover:block p-2 rounded-xl border text-sm bg-white z-[9999] mt-1 border-gray-400">
+        <div class="flex gap-2">
+          <div class="flex items-center gap-1">
+            IPv4
+            <StatusIndicator
+              :status="server.online4"
+              class="w-2 h-2"
+            />
+          </div>
+          <div class="flex items-center gap-1">
+            IPv6
+            <StatusIndicator
+              :status="server.online6"
+              class="w-2 h-2"
+            />
+          </div>
         </div>
         <div v-if="server.latest_ts">
           最后上报时间<br>

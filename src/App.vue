@@ -9,7 +9,7 @@
     <div v-if="error" class="w-fit mx-auto">
       数据加载失败，请尝试刷新页面或检查 ServerStatus 服务端状态
     </div>
-    <div v-if="serverData" class="flex flex-wrap gap-4">
+    <div v-if="serverData" class="flex flex-wrap gap-x-4 gap-y-3">
       <ServerItem
         v-for="server in serverData.servers" :key="server.name"
         :server="server"

@@ -2,7 +2,7 @@
   "routes": [
     {
       "src": "/json/stats.json",
-      "dest": "https://status.orght.cn/json/stats.json"
+      "dest": "https://ssr.rs/json/stats.json"
     }
   ]
 }

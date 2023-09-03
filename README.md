@@ -1,6 +1,6 @@
 # ServerStatus Theme Light
 
-![1693474863910](docs/screenshot.png)
+![screenshot.png](docs/screenshot.png)
 
 在线预览: [ssr-theme-light.orilight.top](https://ssr-theme-light.orilight.top/)
 

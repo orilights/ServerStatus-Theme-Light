@@ -28,13 +28,13 @@
 也可自行打包构建:
 
 ```shell
-# 需要 NodeJS 环境并安装 yarn 包管理器
+# 需要 NodeJS 环境并安装 pnpm 包管理器
 
 # 安装依赖
-yarn install
+pnpm i
 
 # 打包构建
-yarn build
+pnpm build
 ```
 
 打包完成后使用 dist 目录内文件替换原主题即可

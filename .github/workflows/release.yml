@@ -30,8 +30,8 @@ jobs:
       - name: Zip Build
         uses: TheDoctor0/zip-release@0.6.2
         with:
-          filename: dist.zip
-          path: ./dist/
+          filename: ../dist.zip
+          directory: ./dist/
       
       - name: Create Release
         uses: softprops/action-gh-release@v1

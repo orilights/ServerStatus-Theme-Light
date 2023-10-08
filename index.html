@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ServerStatus</title>
-    <link rel="shortcut icon" href="/src/assets/favicon.png" type="image/x-icon">
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ServerStatus</title>
+  <link rel="shortcut icon" href="/src/assets/favicon.png" type="image/x-icon">
+</head>
+
+<body>
+  <div class="px-3 sm:px-6 min-h-screen relative">
+    <h1 class="text-4xl font-bold py-4">
+      服务器监控
+    </h1>
     <div id="app"></div>
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <div class="text-center absolute left-0 bottom-0 py-4 w-full">
+      Powered by <a class="text-blue-500" href="https://github.com/zdz/ServerStatus-Rust"
+        target="_blank">ServerStatus-Rust</a>.
+      Theme <a class="text-blue-500" href="https://github.com/orilights/ServerStatus-Theme-Light"
+        target="_blank">Light</a> by <a class="text-blue-500" href="https://orilight.top/" target="_blank">OriLight</a>
+    </div>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>

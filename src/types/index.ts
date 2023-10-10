@@ -8,6 +8,7 @@ export interface ServerData {
   online4: boolean
   online6: boolean
   uptime: string
+  load: number
   load_1: number
   load_5: number
   load_15: number

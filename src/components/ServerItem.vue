@@ -36,7 +36,7 @@
       </span>
       <img
         v-else
-        :src="`/image/flags/${server.location}.svg`" :alt="`${server.location} flag`"
+        :src="`/image/flags/${server.location.toLowerCase()}.svg`" :alt="`${server.location} flag`"
         class="h-4 inline-block rounded-sm"
       >
       <img
@@ -58,11 +58,23 @@
     </div>
     <div class="flex items-center gap-2">
       负载
-      <Bandage>{{ server.load_1 }}</Bandage>
-      <Bandage>{{ server.load_5 }}</Bandage>
-      <Bandage>{{ server.load_15 }}</Bandage>
+      <Bandage v-if="noLoadData">
+        无数据
+      </Bandage>
+      <Bandage v-if="server.load">
+        {{ server.load }}
+      </Bandage>
+      <Bandage v-if="server.load_1">
+        {{ server.load_1 }}
+      </Bandage>
+      <Bandage v-if="server.load_5">
+        {{ server.load_5 }}
+      </Bandage>
+      <Bandage v-if="server.load_15">
+        {{ server.load_15 }}
+      </Bandage>
     </div>
-    <div class="flex items-center gap-2">
+    <div v-if="server.cpu" class="flex items-center gap-2">
       CPU
       <Progress
         :value="server.cpu" :max="100"
@@ -72,7 +84,7 @@
         {{ server.cpu }}%
       </Progress>
     </div>
-    <div class="flex items-center gap-2">
+    <div v-if="server.memory_total" class="flex items-center gap-2">
       内存
       <Progress
         :value="server.memory_used" :max="server.memory_total"
@@ -81,7 +93,7 @@
         {{ formatBytes(server.memory_used * 1024) }} / {{ formatBytes(server.memory_total * 1024) }}
       </Progress>
     </div>
-    <div class="flex items-center gap-2">
+    <div v-if="server.hdd_total" class="flex items-center gap-2">
       硬盘
       <Progress
         :value="server.hdd_used" :max="server.hdd_total"
@@ -90,7 +102,7 @@
         {{ formatBytes(server.hdd_used * 1024 * 1024) }} / {{ formatBytes(server.hdd_total * 1024 * 1024) }}
       </Progress>
     </div>
-    <div class="flex items-center gap-2">
+    <div v-if="server.network_rx" class="flex items-center gap-2">
       网络
       <Bandage class="flex items-center">
         <IconDownload class="w-4 h-4" />{{ formatBytes(server.network_rx, 1) }}/s
@@ -99,7 +111,7 @@
         <IconUpload class="w-4 h-4" />{{ formatBytes(server.network_tx, 1) }}/s
       </Bandage>
     </div>
-    <div class="flex items-center gap-2">
+    <div v-if="server.network_in" class="flex items-center gap-2">
       流量
       <Bandage class="flex items-center">
         <IconDownload class="w-4 h-4" />{{ formatBytes(server.network_in, 1) }}
@@ -108,23 +120,23 @@
         <IconUpload class="w-4 h-4" />{{ formatBytes(server.network_out, 1) }}
       </Bandage>
     </div>
-    <div>
+    <div v-if="server.swap_total">
       SWAP
       <Bandage>
         {{ formatBytes(server.swap_used * 1024) }} / {{ formatBytes(server.swap_total * 1024) }}
       </Bandage>
     </div>
     <div class="flex gap-1 flex-wrap mt-1">
-      <Bandage>
+      <Bandage v-if="server.tcp_count">
         TCP {{ server.tcp_count }}
       </Bandage>
-      <Bandage>
+      <Bandage v-if="server.udp_count">
         UDP {{ server.udp_count }}
       </Bandage>
-      <Bandage>
+      <Bandage v-if="server.process_count">
         进程 {{ server.process_count }}
       </Bandage>
-      <Bandage>
+      <Bandage v-if="server.thread_count">
         线程 {{ server.thread_count }}
       </Bandage>
     </div>
@@ -151,5 +163,9 @@ const labels = computed(() => {
     result[key] = value
   })
   return result
+})
+
+const noLoadData = computed(() => {
+  return !props.server.load && !props.server.load_1 && !props.server.load_5 && !props.server.load_15
 })
 </script>

@@ -7,7 +7,7 @@
   </div>
   <div v-if="serverData" class="flex flex-wrap gap-x-4 gap-y-3">
     <ServerItem
-      v-for="server in serverData.servers" :key="server.name"
+      v-for="server, index in serverData.servers" :key="index"
       :server="server"
       class="flex-1 min-w-[300px]"
     />

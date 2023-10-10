@@ -10,10 +10,11 @@
 
 基于 [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust) 开发
 
-已兼容的 ServerStatus 实现:
+已兼容的 ServerStatus 实现（仅使用实例站点数据测试，不保证完全兼容，遇到问题请提 Issue）:
 
 - [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust)
 - [cppla/ServerStatus](https://github.com/cppla/ServerStatus)
+- [BotoX/ServerStatus](https://github.com/BotoX/ServerStatus)
 
 ## 特性
 

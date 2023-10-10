@@ -26,6 +26,7 @@ const serverData = ref<{
 }>()
 const loading = ref(true)
 const error = ref(false)
+const fetching = ref(false)
 
 onMounted(() => {
   fetch(jsonApi)
@@ -34,7 +35,7 @@ onMounted(() => {
       serverData.value = data
       setInterval(() => {
         fetchData()
-      }, 1000)
+      }, 500)
     })
     .catch(() => {
       error.value = true
@@ -45,6 +46,9 @@ onMounted(() => {
 })
 
 function fetchData() {
+  if (fetching.value)
+    return
+  fetching.value = true
   fetch(jsonApi)
     .then(res => res.json())
     .then((data) => {
@@ -53,6 +57,9 @@ function fetchData() {
     })
     .catch(() => {
       error.value = true
+    })
+    .finally(() => {
+      fetching.value = false
     })
 }
 </script>

@@ -2,7 +2,7 @@
 
 ![screenshot.png](docs/screenshot.png)
 
-在线预览: [sstl.demo.orilight.top](https://sstl.demo.orilight.top/)
+在线预览: [sstl-demo.orilight.top](https://sstl-demo.orilight.top/)
 
 ## 简介
 

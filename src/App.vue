@@ -5,11 +5,11 @@
   <div v-if="error" class="w-fit mx-auto my-2">
     数据加载失败，请尝试刷新页面或检查 ServerStatus 服务端状态
   </div>
-  <div v-if="serverData" class="flex flex-wrap gap-x-4 gap-y-3">
+  <div v-if="serverData" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-3">
     <ServerItem
       v-for="server, index in serverData.servers" :key="index"
       :server="server"
-      class="flex-1 min-w-[300px]"
+      class="col-span-1"
     />
   </div>
   <div class="h-16" />

@@ -1,6 +1,15 @@
 # ServerStatus Theme Light
 
-![screenshot.png](docs/screenshot.png)
+<details>
+<summary>界面截图</summary>
+
+卡片布局
+![screenshot 1](docs/screenshot1.png)
+
+列表式布局
+![screenshot 2](docs/screenshot2.png)
+
+</details>
 
 在线预览: [sstl-demo.orilight.top](https://sstl-demo.orilight.top/)
 
@@ -18,7 +27,7 @@
 
 ## 特性
 
-- 卡片式极简主题
+- 卡片式/列表式布局
 - 响应式界面
 - 不支持三网 Ping 和丢包数据的显示
 

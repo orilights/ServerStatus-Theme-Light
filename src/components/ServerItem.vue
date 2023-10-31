@@ -64,7 +64,7 @@
         </Bandage>
       </template>
     </div>
-    <div class="flex gap-x-3 flex-wrap">
+    <div class="flex gap-x-3 gap-y-2 flex-wrap">
       <div v-if="server.cpu" class="flex-1 flex items-center gap-2">
         <IconCPU class="w-5 h-5 text-gray-600" />
         <Progress :value="server.cpu" :max="100" :text="`${server.cpu}%`" class="flex-1">

@@ -1,51 +1,51 @@
 <template>
   <div class="absolute right-3 sm:right-6 top-4 flex flex-col items-end">
-    <button @click="showSettingPanel = !showSettingPanel">
+    <button @click.stop="showSettingPanel = !showSettingPanel">
       <IconSettings class="text-gray-500 hover:text-black w-6 h-6 transition-colors" />
     </button>
     <Transition name="popup-right">
       <div
         v-show="showSettingPanel"
-        class="border shadow-md rounded-lg px-4 py-3 z-50 bg-white mt-2 min-w-[200px]"
+        class="setting-panel border shadow-md rounded-lg px-4 py-3 z-50 bg-white mt-2 min-w-[200px]"
       >
         <h2 class="font-bold text-lg">
           设置
         </h2>
-        <div class="flex items-center justify-between">
-          布局模式
-          <div class="rounded-lg overflow-hidden border h-[30px]">
-            <button
-              class="p-1 hover:bg-gray-200 text-gray-500 transition-colors"
-              :class="{
-                '!bg-gray-300 !text-black': settings.layout === 'grid',
-              }"
-              @click="settings.layout = 'grid'"
-            >
-              <IconLayoutGrid class="w-5 h-5" />
-            </button>
-            <button
-              class="p-1 hover:bg-gray-200 text-gray-500 transition-colors"
-              :class="{
-                '!bg-gray-300 !text-black': settings.layout === 'flex',
-              }"
-              @click="settings.layout = 'flex'"
-            >
-              <IconLayoutFlex class="w-5 h-5" />
-            </button>
-            <button
-              class="p-1 hover:bg-gray-200 text-gray-500 transition-colors"
-              :class="{
-                '!bg-gray-300 !text-black': settings.layout === 'list',
-              }"
-              @click="settings.layout = 'list'"
-            >
-              <IconLayoutList class="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-        <div class="flex items-center justify-between">
-          精简显示
-          <Switch v-model="settings.compactMode" />
+        <div class="flex flex-col gap-1">
+          <SettingItem title="布局模式">
+            <div class="rounded-lg overflow-hidden border h-[30px]">
+              <button
+                class="p-1 hover:bg-gray-200 text-gray-500 transition-colors"
+                :class="{
+                  '!bg-gray-300 !text-black': settings.layout === 'grid',
+                }"
+                @click="settings.layout = 'grid'"
+              >
+                <IconLayoutGrid class="w-5 h-5" />
+              </button>
+              <button
+                class="p-1 hover:bg-gray-200 text-gray-500 transition-colors"
+                :class="{
+                  '!bg-gray-300 !text-black': settings.layout === 'flex',
+                }"
+                @click="settings.layout = 'flex'"
+              >
+                <IconLayoutFlex class="w-5 h-5" />
+              </button>
+              <button
+                class="p-1 hover:bg-gray-200 text-gray-500 transition-colors"
+                :class="{
+                  '!bg-gray-300 !text-black': settings.layout === 'list',
+                }"
+                @click="settings.layout = 'list'"
+              >
+                <IconLayoutList class="w-5 h-5" />
+              </button>
+            </div>
+          </SettingItem>
+          <SettingItem title="精简显示">
+            <Switch v-model="settings.compactMode" />
+          </SettingItem>
         </div>
       </div>
     </Transition>
@@ -94,11 +94,17 @@
 import { useLocalStorage, useWindowSize } from '@vueuse/core'
 import type { ServerData } from './types'
 
-const jsonApi = '/json/stats.json'
-
-const ServerCardWidth = 350
+const JSON_API = '/json/stats.json'
+const CARD_WIDTH = 350
 
 const { width: WindowWidth } = useWindowSize()
+
+const settings = useLocalStorage('sstl-settings', {
+  layout: 'grid',
+  compactMode: false,
+}, {
+  mergeDefaults: true,
+})
 
 const serverData = ref<{
   updated: number
@@ -107,21 +113,18 @@ const serverData = ref<{
 const loading = ref(true)
 const error = ref(false)
 const fetching = ref(false)
-
-const settings = useLocalStorage('sstl-settings', {
-  layout: 'grid',
-  compactMode: false,
-}, {
-  mergeDefaults: true,
-})
 const showSettingPanel = ref(false)
 
 const serverCardCount = computed(() => {
-  return Math.floor(WindowWidth.value / ServerCardWidth) || 1
+  return Math.floor(WindowWidth.value / CARD_WIDTH) || 1
 })
 
 onMounted(() => {
-  fetch(jsonApi)
+  document.addEventListener('click', (e) => {
+    if (showSettingPanel.value && !(e.target as HTMLElement).closest('.setting-panel'))
+      showSettingPanel.value = false
+  })
+  fetch(JSON_API)
     .then(res => res.json())
     .then((data) => {
       serverData.value = data
@@ -141,7 +144,7 @@ function fetchData() {
   if (fetching.value)
     return
   fetching.value = true
-  fetch(jsonApi)
+  fetch(JSON_API)
     .then(res => res.json())
     .then((data) => {
       serverData.value = data

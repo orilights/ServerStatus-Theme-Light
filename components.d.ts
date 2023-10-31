@@ -20,6 +20,7 @@ declare module 'vue' {
     Progress: typeof import('./src/components/Progress.vue')['default']
     ServerCard: typeof import('./src/components/ServerCard.vue')['default']
     ServerItem: typeof import('./src/components/ServerItem.vue')['default']
+    SettingItem: typeof import('./src/components/SettingItem.vue')['default']
     StatusIndicator: typeof import('./src/components/StatusIndicator.vue')['default']
     Switch: typeof import('./src/components/Switch.vue')['default']
   }

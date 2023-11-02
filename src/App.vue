@@ -96,6 +96,8 @@ import type { ServerData } from './types'
 
 const JSON_API = '/json/stats.json'
 const CARD_WIDTH = 350
+const REFRESH_INTERVAL = 500
+const MIN_FETCH_INTERVAL = 500
 
 const { width: WindowWidth } = useWindowSize()
 
@@ -114,6 +116,7 @@ const loading = ref(true)
 const error = ref(false)
 const fetching = ref(false)
 const showSettingPanel = ref(false)
+const latestUpdated = ref(0)
 
 const serverCardCount = computed(() => {
   return Math.floor(WindowWidth.value / CARD_WIDTH) || 1
@@ -130,7 +133,7 @@ onMounted(() => {
       serverData.value = data
       setInterval(() => {
         fetchData()
-      }, 500)
+      }, REFRESH_INTERVAL)
     })
     .catch(() => {
       error.value = true
@@ -142,6 +145,8 @@ onMounted(() => {
 
 function fetchData() {
   if (fetching.value)
+    return
+  if (Date.now() - latestUpdated.value < MIN_FETCH_INTERVAL)
     return
   fetching.value = true
   fetch(JSON_API)
@@ -155,6 +160,7 @@ function fetchData() {
     })
     .finally(() => {
       fetching.value = false
+      latestUpdated.value = Date.now()
     })
 }
 </script>

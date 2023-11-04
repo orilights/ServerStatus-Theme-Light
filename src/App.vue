@@ -56,37 +56,39 @@
   <div v-if="error" class="w-fit mx-auto my-2 rounded-lg bg-gray-100 px-4 py-2">
     数据加载失败，请尝试刷新页面或检查 ServerStatus 服务端状态
   </div>
-  <div
-    v-if="serverData"
-    :class="{
-      'grid gap-x-4 gap-y-3': settings.layout === 'grid',
-      'flex flex-wrap gap-x-4 gap-y-3': settings.layout === 'flex',
-      'flex flex-col gap-y-3': settings.layout === 'list',
-    }"
-    :style="{
-      gridTemplateColumns: `repeat(${serverCardCount}, minmax(0, 1fr))`,
-    }"
-  >
-    <template v-if="settings.layout === 'grid' || settings.layout === 'flex'">
-      <ServerCard
-        v-for="server, index in serverData.servers" :key="index"
-        :server="server"
-        :compact-mode="settings.compactMode"
-        :class="{
-          'col-span-1': settings.layout === 'grid',
-          'flex-1 min-w-[300px]': settings.layout === 'flex',
-        }"
-      />
-    </template>
-    <template v-if="settings.layout === 'list'">
-      <ServerItem
-        v-for="server, index in serverData.servers" :key="index"
-        :server="server"
-        :compact-mode="settings.compactMode"
-        class="col-span-1"
-      />
-    </template>
-  </div>
+  <Transition name="popup-bottom">
+    <div
+      v-if="serverData"
+      :class="{
+        'grid gap-x-4 gap-y-3': settings.layout === 'grid',
+        'flex flex-wrap gap-x-4 gap-y-3': settings.layout === 'flex',
+        'flex flex-col gap-y-3': settings.layout === 'list',
+      }"
+      :style="{
+        gridTemplateColumns: `repeat(${serverCardCount}, minmax(0, 1fr))`,
+      }"
+    >
+      <template v-if="settings.layout === 'grid' || settings.layout === 'flex'">
+        <ServerCard
+          v-for="server, index in serverData.servers" :key="index"
+          :server="server"
+          :compact-mode="settings.compactMode"
+          :class="{
+            'col-span-1': settings.layout === 'grid',
+            'flex-1 min-w-[300px]': settings.layout === 'flex',
+          }"
+        />
+      </template>
+      <template v-if="settings.layout === 'list'">
+        <ServerItem
+          v-for="server, index in serverData.servers" :key="index"
+          :server="server"
+          :compact-mode="settings.compactMode"
+          class="col-span-1"
+        />
+      </template>
+    </div>
+  </Transition>
   <div class="h-16" />
 </template>
 
@@ -166,6 +168,17 @@ function fetchData() {
 </script>
 
 <style>
+.popup-bottom-enter-active,
+.popup-bottom-leave-active {
+  transition: all 0.3s ease;
+}
+
+.popup-bottom-enter-from,
+.popup-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(10px)
+}
+
 .popup-right-enter-active,
 .popup-right-leave-active {
   transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);

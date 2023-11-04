@@ -15,7 +15,7 @@
 
 ## 简介
 
-使用 Vue 与 Tailwind CSS 构建的极简 ServerStatus 主题
+使用 Vue 与 Tailwind CSS 构建的 ServerStatus 主题
 
 基于 [zdz/ServerStatus-Rust](https://github.com/zdz/ServerStatus-Rust) 开发
 

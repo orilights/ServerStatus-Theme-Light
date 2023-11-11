@@ -3,6 +3,9 @@
 <details>
 <summary>界面截图</summary>
 
+CPU 占用率图表
+![screenshot 3](docs/screenshot3.png)
+
 卡片布局
 ![screenshot 1](docs/screenshot1.png)
 
@@ -29,6 +32,7 @@
 
 - 卡片式/列表式布局
 - 响应式界面
+- CPU占用率图表
 - 不支持三网 Ping 和丢包数据的显示
 
 ## 使用

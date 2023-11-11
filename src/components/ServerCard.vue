@@ -172,13 +172,19 @@ watch(() => props.server, () => {
     if (props.server.latest_ts <= cpuHistoryLastUpdated)
       return
 
+    const list = cpuHistory.value.slice()
+    list.push({
+      name: Date.now(),
+      value: [
+        props.server.latest_ts * 1000,
+        props.server.cpu,
+      ],
+    })
+    if (list.length > CPU_HISTORY_MAX)
+      list.shift()
+
+    cpuHistory.value = list
     cpuHistoryLastUpdated = props.server.latest_ts
-    cpuHistory.value.push([
-      props.server.latest_ts * 1000,
-      props.server.cpu,
-    ])
-    if (cpuHistory.value.length > CPU_HISTORY_MAX)
-      cpuHistory.value.shift()
   }
 })
 </script>

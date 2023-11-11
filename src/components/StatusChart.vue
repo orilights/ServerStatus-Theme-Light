@@ -1,5 +1,5 @@
 <template>
-  <VChart class="chart" :option="option" :autoresize="true" />
+  <VChart ref="chartRef" class="chart" :option="option" :autoresize="true" />
 </template>
 
 <script setup lang="ts">
@@ -34,59 +34,69 @@ type EChartsOption = ComposeOption<
   | LineSeriesOption
 >
 
-const option = computed<EChartsOption>(() => {
-  return {
-    grid: {
-      left: 40,
-      right: 20,
-      top: 10,
-      bottom: 20,
-    },
-    tooltip: {
-      trigger: 'axis',
-      formatter: (params: any) => {
-        params = params[0]
-        return `${formatTime(params.value[0])}: ${params.value[1]}%`
-      },
-      axisPointer: {
-        animation: false,
-      },
-    },
-    xAxis: {
-      type: 'time',
-      splitLine: {
-        show: false,
-      },
-      axisLabel: {
-        hideOverlap: true,
-      },
-    },
-    yAxis: {
-      type: 'value',
-      max: (value) => {
-        return value.max <= 20
-          ? 20
-          : value.max <= 50
-            ? 50
-            : 100
-      },
-      axisLabel: {
-        hideOverlap: true,
-        showMaxLabel: true,
-        formatter: (value: any) => {
-          return `${value}%`
-        },
-      },
-    },
+const chartRef = ref<any>()
+
+watch(() => props.data, () => {
+  chartRef.value?.setOption({
     series: [
       {
         data: props.data,
-        type: 'line',
-        showSymbol: false,
       },
     ],
-  }
+  })
 })
+
+const option: EChartsOption = {
+  grid: {
+    left: 40,
+    right: 20,
+    top: 10,
+    bottom: 20,
+  },
+  tooltip: {
+    trigger: 'axis',
+    formatter: (params: any) => {
+      params = params[0]
+      return `${formatTime(params.value[0])}: ${params.value[1]}%`
+    },
+    axisPointer: {
+      animation: false,
+    },
+  },
+  xAxis: {
+    type: 'time',
+    splitLine: {
+      show: false,
+    },
+    axisLabel: {
+      hideOverlap: true,
+    },
+  },
+  yAxis: {
+    type: 'value',
+    max: (value: any) => {
+      return value.max <= 20
+        ? 20
+        : value.max <= 50
+          ? 50
+          : 100
+    },
+    axisLabel: {
+      hideOverlap: true,
+      showMaxLabel: true,
+      formatter: (value: any) => {
+        return `${value}%`
+      },
+    },
+  },
+  series: [
+    {
+      data: props.data,
+      type: 'line',
+      showSymbol: false,
+    },
+  ],
+}
 
 function formatTime(time: number) {
   const date = new Date(time)

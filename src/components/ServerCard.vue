@@ -84,6 +84,7 @@
         {{ server.cpu }}%
       </Progress>
     </div>
+    <StatusChart v-if="showCpuChart" :data="cpuHistory" />
     <div v-if="server.memory_total" class="flex items-center gap-2">
       内存
       <Progress
@@ -153,7 +154,28 @@ import { formatBytes, formatTime, isCountryFlagEmoji, isOnline } from '@/utils'
 const props = defineProps<{
   server: ServerData
   compactMode: boolean
+  showCpuChart: boolean
 }>()
+
+const CPU_HISTORY_MAX = 300
+
+const cpuHistory = ref<any[]>([])
+let cpuHistoryLastUpdated = 0
+
+watch(() => props.server, () => {
+  if (props.server.latest_ts && props.server.cpu) {
+    if (props.server.latest_ts <= cpuHistoryLastUpdated)
+      return
+
+    cpuHistoryLastUpdated = props.server.latest_ts
+    cpuHistory.value.push([
+      props.server.latest_ts * 1000,
+      props.server.cpu,
+    ])
+    if (cpuHistory.value.length > CPU_HISTORY_MAX)
+      cpuHistory.value.shift()
+  }
+})
 
 const labels = computed(() => {
   if (!props.server.labels)

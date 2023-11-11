@@ -46,6 +46,9 @@
           <SettingItem title="精简显示">
             <Switch v-model="settings.compactMode" />
           </SettingItem>
+          <SettingItem title="CPU图表">
+            <Switch v-model="settings.showCpuChart" />
+          </SettingItem>
         </div>
       </div>
     </Transition>
@@ -73,6 +76,7 @@
           v-for="server, index in serverData.servers" :key="index"
           :server="server"
           :compact-mode="settings.compactMode"
+          :show-cpu-chart="settings.showCpuChart"
           :class="{
             'col-span-1': settings.layout === 'grid',
             'flex-1 min-w-[300px]': settings.layout === 'flex',
@@ -106,6 +110,7 @@ const { width: WindowWidth } = useWindowSize()
 const settings = useLocalStorage('sstl-settings', {
   layout: 'grid',
   compactMode: false,
+  showCpuChart: false,
 }, {
   mergeDefaults: true,
 })

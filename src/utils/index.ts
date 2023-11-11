@@ -29,3 +29,24 @@ export function isCountryFlagEmoji(text: string) {
   const regex = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g
   return regex.test(text)
 }
+
+export function hasLoadData(server: ServerData) {
+  return server.load === undefined
+    && server.load_1 === undefined
+    && server.load_5 === undefined
+    && server.load_15 === undefined
+}
+
+export function parseLabels(labelsString: string | undefined) {
+  if (labelsString === undefined)
+    return {}
+  const list = labelsString.split(';')
+  const result: { [key: string]: string } = {}
+  list.forEach((item) => {
+    if (item === '')
+      return
+    const [key, value] = item.split('=')
+    result[key] = value
+  })
+  return result
+}

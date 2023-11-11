@@ -149,7 +149,7 @@
 
 <script setup lang="ts">
 import type { ServerData } from '@/types'
-import { formatBytes, formatTime, isCountryFlagEmoji, isOnline } from '@/utils'
+import { formatBytes, formatTime, hasLoadData, isCountryFlagEmoji, isOnline, parseLabels } from '@/utils'
 
 const props = defineProps<{
   server: ServerData
@@ -160,9 +160,12 @@ const props = defineProps<{
 const StatusChart = defineAsyncComponent(() => import('@/components/StatusChart.vue'))
 
 const CPU_HISTORY_MAX = 300
+let cpuHistoryLastUpdated = 0
 
 const cpuHistory = ref<any[]>([])
-let cpuHistoryLastUpdated = 0
+
+const labels = computed(() => parseLabels(props.server.labels))
+const noLoadData = computed(() => hasLoadData(props.server))
 
 watch(() => props.server, () => {
   if (props.server.latest_ts && props.server.cpu) {
@@ -177,23 +180,5 @@ watch(() => props.server, () => {
     if (cpuHistory.value.length > CPU_HISTORY_MAX)
       cpuHistory.value.shift()
   }
-})
-
-const labels = computed(() => {
-  if (!props.server.labels)
-    return {}
-  const list = props.server.labels.split(';')
-  const result: { [key: string]: string } = {}
-  list.forEach((item) => {
-    if (item === '')
-      return
-    const [key, value] = item.split('=')
-    result[key] = value
-  })
-  return result
-})
-
-const noLoadData = computed(() => {
-  return !props.server.load && !props.server.load_1 && !props.server.load_5 && !props.server.load_15
 })
 </script>

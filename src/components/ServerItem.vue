@@ -120,28 +120,13 @@
 
 <script setup lang="ts">
 import type { ServerData } from '@/types'
-import { formatBytes, formatTime, isCountryFlagEmoji, isOnline } from '@/utils'
+import { formatBytes, formatTime, hasLoadData, isCountryFlagEmoji, isOnline, parseLabels } from '@/utils'
 
 const props = defineProps<{
   server: ServerData
   compactMode: boolean
 }>()
 
-const labels = computed(() => {
-  if (!props.server.labels)
-    return {}
-  const list = props.server.labels.split(';')
-  const result: { [key: string]: string } = {}
-  list.forEach((item) => {
-    if (item === '')
-      return
-    const [key, value] = item.split('=')
-    result[key] = value
-  })
-  return result
-})
-
-const noLoadData = computed(() => {
-  return !props.server.load && !props.server.load_1 && !props.server.load_5 && !props.server.load_15
-})
+const labels = computed(() => parseLabels(props.server.labels))
+const noLoadData = computed(() => hasLoadData(props.server))
 </script>

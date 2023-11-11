@@ -24,7 +24,7 @@
             />
           </div>
         </div>
-        <div v-if="server.latest_ts">
+        <div v-if="server.latest_ts !== undefined">
           最后上报时间<br>
           {{ formatTime(server.latest_ts) }}
         </div>
@@ -40,7 +40,7 @@
         class="h-4 inline-block rounded-sm"
       >
       <img
-        v-if="labels.os"
+        v-if="labels.os !== undefined"
         :src="`/image/os/${labels.os}.svg`" :alt="`${labels.os} os`"
         class="h-4 inline-block rounded-sm"
       >
@@ -61,20 +61,20 @@
       <Bandage v-if="noLoadData">
         无数据
       </Bandage>
-      <Bandage v-if="server.load">
+      <Bandage v-if="server.load !== undefined">
         {{ server.load }}
       </Bandage>
-      <Bandage v-if="server.load_1">
+      <Bandage v-if="server.load_1 !== undefined">
         {{ server.load_1 }}
       </Bandage>
-      <Bandage v-if="server.load_5">
+      <Bandage v-if="server.load_5 !== undefined">
         {{ server.load_5 }}
       </Bandage>
-      <Bandage v-if="server.load_15">
+      <Bandage v-if="server.load_15 !== undefined">
         {{ server.load_15 }}
       </Bandage>
     </div>
-    <div v-if="server.cpu" class="flex items-center gap-2">
+    <div v-if="server.cpu !== undefined" class="flex items-center gap-2">
       CPU
       <Progress
         :value="server.cpu" :max="100"
@@ -85,7 +85,7 @@
       </Progress>
     </div>
     <StatusChart v-if="showCpuChart" :data="cpuHistory" />
-    <div v-if="server.memory_total" class="flex items-center gap-2">
+    <div v-if="server.memory_total !== undefined" class="flex items-center gap-2">
       内存
       <Progress
         :value="server.memory_used" :max="server.memory_total"
@@ -94,7 +94,7 @@
         {{ formatBytes(server.memory_used * 1024) }} / {{ formatBytes(server.memory_total * 1024) }}
       </Progress>
     </div>
-    <div v-if="server.hdd_total" class="flex items-center gap-2">
+    <div v-if="server.hdd_total !== undefined" class="flex items-center gap-2">
       硬盘
       <Progress
         :value="server.hdd_used" :max="server.hdd_total"
@@ -103,7 +103,7 @@
         {{ formatBytes(server.hdd_used * 1024 * 1024) }} / {{ formatBytes(server.hdd_total * 1024 * 1024) }}
       </Progress>
     </div>
-    <div v-if="server.network_rx" class="flex items-center gap-2">
+    <div v-if="server.network_rx !== undefined" class="flex items-center gap-2">
       网络
       <Bandage class="flex items-center">
         <IconDownload class="w-4 h-4" />{{ formatBytes(server.network_rx, 1) }}/s
@@ -112,7 +112,7 @@
         <IconUpload class="w-4 h-4" />{{ formatBytes(server.network_tx, 1) }}/s
       </Bandage>
     </div>
-    <div v-if="server.network_in && !compactMode" class="flex items-center gap-2">
+    <div v-if="server.network_in !== undefined && !compactMode" class="flex items-center gap-2">
       流量
       <Bandage class="flex items-center">
         <IconDownload class="w-4 h-4" />{{ formatBytes(server.network_in, 1) }}
@@ -121,7 +121,7 @@
         <IconUpload class="w-4 h-4" />{{ formatBytes(server.network_out, 1) }}
       </Bandage>
     </div>
-    <div v-if="server.swap_total && !compactMode">
+    <div v-if="server.swap_total !== undefined && !compactMode">
       SWAP
       <Bandage>
         {{ formatBytes(server.swap_used * 1024) }} / {{ formatBytes(server.swap_total * 1024) }}
@@ -131,16 +131,16 @@
       v-if=" !compactMode"
       class="flex gap-1 flex-wrap mt-1"
     >
-      <Bandage v-if="server.tcp_count">
+      <Bandage v-if="server.tcp_count !== undefined">
         TCP {{ server.tcp_count }}
       </Bandage>
-      <Bandage v-if="server.udp_count">
+      <Bandage v-if="server.udp_count !== undefined">
         UDP {{ server.udp_count }}
       </Bandage>
-      <Bandage v-if="server.process_count">
+      <Bandage v-if="server.process_count !== undefined">
         进程 {{ server.process_count }}
       </Bandage>
-      <Bandage v-if="server.thread_count">
+      <Bandage v-if="server.thread_count !== undefined">
         线程 {{ server.thread_count }}
       </Bandage>
     </div>

@@ -157,6 +157,8 @@ const props = defineProps<{
   showCpuChart: boolean
 }>()
 
+const StatusChart = defineAsyncComponent(() => import('@/components/StatusChart.vue'))
+
 const CPU_HISTORY_MAX = 300
 
 const cpuHistory = ref<any[]>([])

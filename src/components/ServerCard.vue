@@ -159,7 +159,7 @@ const props = defineProps<{
 
 const StatusChart = defineAsyncComponent(() => import('@/components/StatusChart.vue'))
 
-const CPU_HISTORY_MAX = 300
+const CPU_HISTORY_KEEP_TIME = 300
 let cpuHistoryLastUpdated = 0
 
 const cpuHistory = ref<any[]>([])
@@ -180,7 +180,7 @@ watch(() => props.server, () => {
         props.server.cpu,
       ],
     })
-    if (list.length > CPU_HISTORY_MAX)
+    while (list[0].name < Date.now() - CPU_HISTORY_KEEP_TIME * 1000)
       list.shift()
 
     cpuHistory.value = list
